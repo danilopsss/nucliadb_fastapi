@@ -1,0 +1,54 @@
+services:
+  main-app-dev:
+    container_name: main_app_dev
+    working_dir: /app
+    build:
+      context: ..
+      dockerfile: environment/Dockerfile
+    command: ./scripts/start.sh API nuclia_db
+    ports:
+      - 8000:8000
+    volumes:
+      - ../:/app
+    depends_on:
+      - nuclia-db
+
+  main-app:
+    container_name: main_app
+    build:
+      context: ..
+      dockerfile: environment/Dockerfile
+      target: main_app
+    ports:
+      - 8000:8000
+    depends_on:
+      - nuclia-db
+
+  test-app:
+    container_name: main_app_test
+    build:
+      context: ..
+      dockerfile: environment/Dockerfile
+      target: test_step
+    ports:
+      - 8000:8000
+    depends_on:
+      - nuclia-db
+
+  nuclia-db:
+    container_name: nuclia_db
+    image: nuclia/nucliadb:latest
+    volumes:
+      - nucliadb-standalone:/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "1"
+    ports:
+      - 8080:8080
+      - 8060:8060
+      - 8040:8040
+
+volumes:
+  nucliadb-standalone:

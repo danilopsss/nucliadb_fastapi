@@ -1,7 +1,5 @@
 # NucliaDB
 
-Hello! Thanks for inviting me to this step of the process. It was really cool to work with NucliaDB, there was some specific points that I have to learn, understand and for me this the the most valuable thing that we can accomplish...**Learn!**
-
 # The [Makefile](./Makefile)
 
 The Makefile holds all relevant commands that we have in this application. Below are described all possible ones:
